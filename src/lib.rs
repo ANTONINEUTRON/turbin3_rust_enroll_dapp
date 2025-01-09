@@ -17,7 +17,7 @@ mod tests {
     use solana_program::{system_instruction::transfer,system_program};
     use std::str::FromStr;
     
-    use crate::programs::Turbin3_prereq::{WbaPrereqProgram, CompleteArgs,UpdateArgs};
+    use crate::programs::Turbin3_prereq::{Turbin3PrereqProgram, CompleteArgs,UpdateArgs};
 
     #[test]
     fn keygen() {
@@ -149,24 +149,52 @@ mod tests {
 
         let signer = read_keypair_file("wallet.json").expect("Couldn't find wallet file");
 
-        let prereq = WbaPrereqProgram::derive_program_address(&[b"prereq",signer.pubkey().to_bytes().as_ref()]);
+        let prereq = Turbin3PrereqProgram::derive_program_address(&[b"prereq",signer.pubkey().to_bytes().as_ref()]);
 
         // Define our instruction data 
-        let args = CompleteArgs {github: b"testaccount".to_vec() };
+        let args = CompleteArgs{github: b"antonineutron".to_vec() };
 
-        let blockhash = rpc_client .get_latest_blockhash() .expect("Failed to get recent blockhash");
+        let blockhash = rpc_client.get_latest_blockhash().expect("Failed to get recent blockhash");
 
         // Now we can invoke the "complete" function 
-        let transaction = WbaPrereqProgram::complete(
+        let transaction = Turbin3PrereqProgram::complete(
             &[&signer.pubkey(), 
             &prereq, 
             &system_program::id()
         ], &args, Some(&signer.pubkey()),&[&signer],blockhash );
 
-        let signature = rpc_client .send_and_confirm_transaction(&transaction) .expect("Failed to send transaction");
+        let signature = rpc_client.send_and_confirm_transaction(&transaction).expect("Failed to send transaction");
 
         // Print our transaction out 
         println!("Success! Check out your TX here:https://explorer.solana.com/tx/{}/?cluster=devnet", signature);
+    }
+
+    // I had to send an update transaction due to an error made
+    #[test]
+    fn update(){
+        // Create a Solana devnet connection
+        let rpc_client = RpcClient::new(RPC_URL);
+
+        let signer = read_keypair_file("wallet.json").expect("Couldn't find wallet file");
+
+        let prereq = Turbin3PrereqProgram::derive_program_address(&[b"prereq",signer.pubkey().to_bytes().as_ref()]);
+
+        // Define our instruction data 
+        let args = UpdateArgs{github: b"antonineutron".to_vec() };
+
+        let blockhash = rpc_client.get_latest_blockhash().expect("Failed to get recent blockhash");
+
+        // Now we can invoke the "complete" function 
+        let transaction = Turbin3PrereqProgram::update(
+            &[&signer.pubkey(), 
+            &prereq, 
+            &system_program::id()
+        ], &args, Some(&signer.pubkey()),&[&signer],blockhash );
+
+        let signature = rpc_client.send_and_confirm_transaction(&transaction).expect("Failed to send transaction");
+
+        // Print our transaction out on console
+        println!("Success! Check out your Transaction here:https://explorer.solana.com/tx/{}/?cluster=devnet", signature);
     }
 
     #[test]
