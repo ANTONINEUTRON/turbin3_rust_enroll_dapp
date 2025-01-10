@@ -10,4 +10,8 @@ Operations performed in the lib.rs module are:
 - base58_to_wallet: Converts the publickey address to array of bytes
 - wallet_to_base58: Converts the wallet array of bytes in dev-wallet.json to publickey address
 
-Transaction is hosted here:https://explorer.solana.com/tx/2Ww5eGeQZDyoAkgdVcpPehRmhWF7Gto95r6uKQem4HMTBx5zDWFgzXXZ6VBwvwa1TyQsx383a3hrBcY13qnGDBfQ/?cluster=devnet
+Transaction is hosted here: https://explorer.solana.com/tx/2Ww5eGeQZDyoAkgdVcpPehRmhWF7Gto95r6uKQem4HMTBx5zDWFgzXXZ6VBwvwa1TyQsx383a3hrBcY13qnGDBfQ/?cluster=devnet
+
+
+New Transaction to the updated address shared
+is hosted here: https://explorer.solana.com/tx/3ZGGRAUatoUpF4uXzWPE8RZd8MtWgraGMQ2X9VSgrZgpnjnv4Mqh1wfW34moAyvkD1Bs7Xw9ETGSoitjEzNPrX9W?cluster=devnet
